@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         String text = sharedPreferences.getString("ResetValue","0");
         currentAmountTextView.setText(text);
         currentAmountTextView.setTextColor(Color.rgb(0,0,0));
+        buttonSubtract.setEnabled(true);
     }
 
     public void subtract(View view) {
@@ -111,9 +112,13 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
                 currentAmountTextView.setText(String.valueOf(result));
                 editTextAmountSubtract.setText("");
-                if (result<5){
+                if (result<5 && result!=0){
                     currentAmountTextView.setTextColor(Color.rgb(255,57,51));
                     Toast.makeText(this, "You are reaching limit!", Toast.LENGTH_SHORT).show();
+                }
+                else if (result == 0){
+                    Toast.makeText(this, "You have spend your daily limit!", Toast.LENGTH_SHORT).show();
+                    buttonSubtract.setEnabled(false);
                 }
             }
 
